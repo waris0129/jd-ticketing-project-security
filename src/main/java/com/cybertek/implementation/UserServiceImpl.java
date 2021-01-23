@@ -13,6 +13,8 @@ import com.cybertek.service.ProjectService;
 import com.cybertek.service.TaskService;
 import com.cybertek.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,44 +22,52 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
-
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
-    private UserMapper userMapper;
-
-    @Autowired
     private ProjectService projectService;
-
     @Autowired
     private TaskService taskService;
-
     @Autowired
-    Mapper mapper;
+    private Mapper mapper;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+
+
+
+
 
     @Override
-    public UserDTO save(String username) {
+    public void save(String username) {
 
 
 
-        return null;
+
     }
 
     @Override
-    public UserDTO save(UserDTO dto) {
+    public void save(UserDTO dto) {
 
         //UserEntity userEntity = userMapper.convertToUserEntity(dto);
-        UserEntity userEntity = mapper.convert(dto,new UserEntity());
+//        dto.setEnabled(true);
+//        UserEntity userEntity = mapper.convert(dto,new UserEntity());
+//
+//        int countDuplicate = userRepository.isDuplicate(dto.getUsername());
+//        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+//
+//        if(countDuplicate==0)
+//            userRepository.save(userEntity);
 
-        int countDuplicate = userRepository.isDuplicate(dto.getUsername());
+        dto.setEnabled(true);
 
-        if(countDuplicate==0)
-            userRepository.save(userEntity);
+        UserEntity obj =  mapper.convert(dto,new UserEntity());
+        obj.setPassword(passwordEncoder.encode(obj.getPassword()));
+        userRepository.save(obj);
 
 
-        return null;
+
+
     }
 
     @Override
@@ -132,6 +142,9 @@ public class UserServiceImpl implements UserService {
             case "Employee":
                 List<TaskDTO> entities1 = taskService.findAllUnCompletedTasksByUser(username);
                 return entities1.size()==0;
+            case "Admin":
+                List<TaskDTO> entities2 = taskService.findAllUnCompletedTasksByUser(username);
+                return entities2.size()==0;
         }
 
         return false;

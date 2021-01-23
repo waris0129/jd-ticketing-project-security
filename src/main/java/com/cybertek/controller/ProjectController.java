@@ -95,11 +95,11 @@ public class ProjectController {
     }
 
 
-    @GetMapping("manager/status")
+    @GetMapping("/manager/complete")
     public String projectStatus(Model model){
 
 
-        List<ProjectDTO> projects = projectService.findProjectListByUserName("waris0129@admin.com");
+        List<ProjectDTO> projects = projectService.findProjectListByUserName("waris0129@hotmail.com");
 
 
 
@@ -109,7 +109,6 @@ public class ProjectController {
 
         return "manager/project-status";
     }
-
 
 
 

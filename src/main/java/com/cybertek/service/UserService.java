@@ -12,8 +12,8 @@ public interface UserService {
         void update(String username);
         void update(UserDTO userDTO);
         void delete(String username) throws TicketingException;
-        UserDTO save(String username);
-        UserDTO save(UserDTO dto);
+        void  save(String username);
+        void save(UserDTO dto);
 
         List<UserDTO> findAllUsersByRole(String roleDescription);
 

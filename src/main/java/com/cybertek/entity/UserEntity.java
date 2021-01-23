@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Where;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
@@ -23,7 +24,7 @@ public class UserEntity extends BaseEntity{
     private boolean enabled;
     private String phone;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "role_id")
     private RoleEntity role;
 

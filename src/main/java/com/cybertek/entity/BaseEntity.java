@@ -8,11 +8,11 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@MappedSuperclass
-@Setter
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
+@MappedSuperclass
 public class BaseEntity {
 
     @Id

@@ -1,6 +1,7 @@
 package com.cybertek.entity;
 
 import com.cybertek.repository.RoleRepository;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,10 +11,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Setter
-@Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Entity
 @Table(name = "roles")
 public class RoleEntity extends BaseEntity{
 
