@@ -7,6 +7,7 @@ import com.cybertek.service.ProjectService;
 import com.cybertek.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -98,8 +99,9 @@ public class ProjectController {
     @GetMapping("/manager/complete")
     public String projectStatus(Model model){
 
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        List<ProjectDTO> projects = projectService.findProjectListByUserName("waris0129@hotmail.com");
+        List<ProjectDTO> projects = projectService.findProjectListByUserName(username);
 
 
 

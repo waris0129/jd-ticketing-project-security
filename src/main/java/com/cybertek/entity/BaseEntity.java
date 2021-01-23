@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @MappedSuperclass
+@EntityListeners(BaseEntityListener.class)
 public class BaseEntity {
 
     @Id
@@ -31,19 +32,19 @@ public class BaseEntity {
 
     private Boolean isDeleted=false;
 
-    @PrePersist
-    public void onPrePersisit(){
-        insertDateTime = LocalDateTime.now();
-        lastUpdateDateTime = LocalDateTime.now();
-        insertUserId = 1l;
-        lastUpdateUserId = 1l;
-    }
-
-    @PreUpdate
-    public void onPreUpdate(){
-        lastUpdateDateTime = LocalDateTime.now();
-        lastUpdateUserId = 1l;
-    }
+//    @PrePersist
+//    public void onPrePersisit(){
+//        insertDateTime = LocalDateTime.now();
+//        lastUpdateDateTime = LocalDateTime.now();
+//        insertUserId = 1l;
+//        lastUpdateUserId = 1l;
+//    }
+//
+//    @PreUpdate
+//    public void onPreUpdate(){
+//        lastUpdateDateTime = LocalDateTime.now();
+//        lastUpdateUserId = 1l;
+//    }
 
 
 }

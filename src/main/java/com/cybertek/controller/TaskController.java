@@ -10,6 +10,7 @@ import com.cybertek.service.ProjectService;
 import com.cybertek.service.TaskService;
 import com.cybertek.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -99,10 +100,12 @@ public class TaskController {
     @GetMapping("employee/pending-tasks")
     public String pendingTasks(Model model){
 
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
         model.addAttribute("test",new TaskDTO());
                                         //FIND UNCompleted tasks
     //    List<TaskDTO> tasks = taskService.findAllTaskListByUser("mike@gmail.com");
-        List<TaskDTO> tasks = taskService.findAllUnCompletedTasksByUser("mike@gmail.com");
+        List<TaskDTO> tasks = taskService.findAllUnCompletedTasksByUser(username);
         model.addAttribute("tasks",tasks);
 
 
@@ -114,11 +117,13 @@ public class TaskController {
     @GetMapping("employee/pending-tasks/{id}")
     public String updatePendingTaskStatus(@PathVariable("id")Long id, Model model){
 
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
         TaskDTO taskDTO = taskService.findTaskById(id);
 
         model.addAttribute("test",taskDTO);
 
-        List<TaskDTO> tasks = taskService.findAllUnCompletedTasksByUser("mike@gmail.com");
+        List<TaskDTO> tasks = taskService.findAllUnCompletedTasksByUser(username);
 
         model.addAttribute("tasks",tasks);
 
@@ -145,8 +150,9 @@ public class TaskController {
 
     @GetMapping("/employee/archive")
     public String archive(Model model){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        List<TaskDTO> tasks = taskService.findAllCompletedTaskListByUser("mike@gmail.com");
+        List<TaskDTO> tasks = taskService.findAllCompletedTaskListByUser(username);
 
         model.addAttribute("tasks",tasks);
 
